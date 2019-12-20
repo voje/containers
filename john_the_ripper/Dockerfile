@@ -17,9 +17,7 @@ RUN git clone https://github.com/magnumripper/JohnTheRipper.git
 # Compile.
 WORKDIR /git/JohnTheRipper/src
 RUN ./configure && make
-RUN ln -s -T /git/JohnTheRipper/run/john /usr/local/bin/john
+WORKDIR /git/JohnTheRipper/run
 
-RUN echo "john --help"
-RUN mkdir /workdir
-WORKDIR /workdir
-
+# Crunch password generator.
+RUN apt-get install -y crunch

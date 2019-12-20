@@ -5,4 +5,9 @@ build:
 	docker push ${IMG}
 
 run:
-	docker run --rm -it ${IMG} /bin/bash
+	docker run \
+		--rm \
+		-it \
+		-v $(shell realpath workdir):/workdir \
+		${IMG} \
+		/bin/bash
