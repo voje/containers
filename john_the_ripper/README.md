@@ -1,4 +1,5 @@
 # John
+John-the-ripper - cool tool for cracking Linux/Unix/MacOS passwords.
 
 We have a line from a linux system `shadow` file and a password: `verifikacija1` which should be similar to the actual password stored in the hash.  
 
