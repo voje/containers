@@ -1,4 +1,5 @@
 # John
+John-the-ripper - cool tool for cracking Linux/Unix/MacOS passwords.
 
 You'll need a `wordlist.txt` file and a `shadow` file (or at least a line from the shadow file).  
 Put your files in `./workdir` and start up the container: 
