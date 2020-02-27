@@ -6,4 +6,4 @@ build:
 	docker push ${IMG}
 
 run: build
-	docker run -it --rm ${IMG} skopeo --help
+	docker run -it --rm ${IMG} sh -c 'skopeo -v && registry -v'
