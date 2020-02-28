@@ -1,0 +1,4 @@
+k-vm-repo-server.docker.iskratel.mak:4567/deploy/infrastructure/ubuntu-source-ceph-osd:1.5.0
+k-vm-repo-server.docker.iskratel.mak:4567/deploy/infrastructure/ubuntu-source-ceph-mgr:1.5.0
+k-vm-repo-server.docker.iskratel.mak:4567/deploy/infrastructure/ubuntu-source-ceph-mon:1.5.0
+k-vm-repo-server.docker.iskratel.mak:4567/deploy/infrastructure/ubuntu-source-prometheus-openstack-exporter:1.5.0
