@@ -8,7 +8,6 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"strings"
 	"text/template"
 
 	cli "github.com/urfave/cli/v2"
@@ -28,12 +27,7 @@ func Pull(c *cli.Context) {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		colonSplit := strings.Split(line, ":")
-		newImg := DockerImg{
-			Name: string(strings.Join(colonSplit[:len(colonSplit)-1], ":")),
-			Tags: []string{colonSplit[len(colonSplit)-1]},
-		}
-		dockerImages = append(dockerImages, newImg)
+		dockerImages = append(dockerImages, NewDockerImg(line))
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -55,7 +49,8 @@ func Pull(c *cli.Context) {
 		log.Fatal(err)
 	}
 
-	defer os.Remove(tmpfile.Name()) // clean up
+	// Make sure to clean up the file with the password!
+	defer os.Remove(tmpfile.Name())
 
 	if _, err := tmpfile.Write(buff.Bytes()); err != nil {
 		log.Fatal(err)
@@ -78,7 +73,7 @@ func Pull(c *cli.Context) {
 		"--dest-tls-verify=false",
 		"--dest=docker",
 		tmpfile.Name(),
-		GlobalString["local-addr"],
+		TrimHttp(GlobalString["local-addr"]),
 	)
 	var out bytes.Buffer
 	cmd.Stdout = &out

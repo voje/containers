@@ -1,5 +1,10 @@
 vmgitent.iskratel.si:4567:
     tls-verify: false
+    credentials:
+        username: voje
+        password: SECRET
     images:
         ai6212ax/bacula-infra-backup/it_bacula-db: ["1.1.0"]
-        ai6212ax/it_repo_server/nginx: ["1.15.1"]
+
+# Working command:
+# $ skopeo sync --src=yaml --dest=docker --dest-tls-verify=false --dest-no-creds=true skopeo.yml 127.0.0.1:5000
