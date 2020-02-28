@@ -22,4 +22,9 @@ RUN apk add --no-cache ca-certificates
 COPY --from=skopeo_builder /go/src/github.com/containers/skopeo/skopeo /usr/local/bin/skopeo
 COPY --from=skopeo_builder /go/src/github.com/containers/skopeo/default-policy.json /etc/containers/policy.json
 
-CMD ["skopeo" "-h" "registry" "-h"]
+
+VOLUME ["/var/lib/registry"]
+EXPOSE 5000
+ENTRYPOINT ["registry", "serve", "/etc/docker/registry/config.yml"]
+
+CMD ["skopeo" "-h"]

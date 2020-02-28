@@ -1,0 +1,7 @@
+# The tool combines the key (registry) with the rest of the image path.   
+# This is a bit of a hack, but we can just leave the key blank and linst full paths under images.
+"":
+    images:
+        {{- range $x := . }}
+        {{ $x.Name }}: {{ $x.Tags }}
+        {{- end }}
