@@ -67,8 +67,9 @@ func main() {
 			},
 			Flags: []cli.Flag{
 				&cli.StringFlag{
-					Name:     "dst-addr",
-					Usage:    "Destination registry address. (Don't forget the port, e.g. :4567).",
+					Name: "dst-addr",
+					Usage: "Destination registry address; e.g. 'k-vm-repo-server.docker.iskratel.mak:4567/deploy/infrastructure. " +
+						"Note that destination image address is created by combining the destination registry address and the image name.",
 					Required: true,
 				},
 				&cli.StringFlag{

@@ -28,3 +28,11 @@ $ skopeo sync --src-creds=voje:hiddenPASSWORD --src=docker --dest=docker --dest-
 iskratel.si:4567/ai6212ax/bacula-infra-backup/it_bacula-db:1.1.0 127.0.0.1:5000
 
 ```
+
+## Working examples
+To run, we copied skopeo to our host machine and ran a `--net host` docker container.   
+
+Push all images from registry to destination.
+```bash
+go run main.go push --dst-addr=k-vm-repo-server.docker.iskratel.mak:4567/deploy/portainer_templates --creds deploy:deploypassword
+```

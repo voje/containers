@@ -2,13 +2,11 @@ package tools
 
 import (
 	"bufio"
-	"bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
-	"text/template"
 
 	cli "github.com/urfave/cli/v2"
 )
@@ -41,42 +39,16 @@ func Pull(c *cli.Context) {
 		Images:   dockerImages,
 	}
 
-	// Read template from file.
-	/*
-		templ, err := template.ParseFiles("../../package/tools/templates/skopeo_template.yml")
-		if err != nil {
-			log.Fatal(err)
-		}
-	*/
-
-	// Read template from string.
-	templ := template.Must(template.New("skopeo_template").Parse(skopeo_template))
+	// Generate a temporary file with the skopeo template.
+	tmpFile, err := ioutil.TempFile("/tmp", "skopeo_pull")
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// Write config to tmp file.
-	var buff bytes.Buffer
-	templ.Execute(&buff, tmplData)
-
-	tmpfile, err := ioutil.TempFile("/tmp", "skopeo_config")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Make sure to clean up the file with the password!
-	defer os.Remove(tmpfile.Name())
-
-	if _, err := tmpfile.Write(buff.Bytes()); err != nil {
-		log.Fatal(err)
-	}
-	if err := tmpfile.Close(); err != nil {
-		log.Fatal(err)
-	}
+	defer os.Remove(tmpFile.Name())
+	WriteSkopeoTemplate(tmplData, tmpFile)
 
 	// Some info output.
-	log.Println(tmpfile.Name())
-	log.Println(string(buff.Bytes()))
+	log.Println(tmpFile.Name())
 
 	// Run process call: skopeo
 	cmd := exec.Command(
@@ -87,19 +59,8 @@ func Pull(c *cli.Context) {
 		"--src=yaml",
 		"--dest-tls-verify=false",
 		"--dest=docker",
-		tmpfile.Name(),
+		tmpFile.Name(),
 		TrimHttp(GlobalString["local-addr"]),
 	)
-	var cmdOut, cmdErr bytes.Buffer
-	cmd.Stdout = &cmdOut
-	cmd.Stderr = &cmdErr
-
-	log.Println(cmd.Path)
-	log.Println(cmd.Args)
-
-	err = cmd.Run()
-	if err != nil {
-		log.Fatal(cmdErr.String())
-	}
-	log.Printf(cmdOut.String())
+	cmdRun(cmd)
 }
