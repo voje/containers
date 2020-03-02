@@ -10,8 +10,13 @@ In order to preserve (and transport) docker images, we need to mount
 `/var/lib/registry`. On destination, simply run the registry with this mounted 
 folder and you should be able to list and push the images.   
 
+## Developing tools
+When developing docker tools, make sure you have a skopeo bin on your local environment.   
+Best option to get the right version (version with 'sync') is to run this docker container and copy 
+the `/usr/local/bin/skopeo` to your system.   
+Run the conainer with `--net host` so you can access the registry on `:5000`.   
 
-# Run these inside the docker container:
+## Run these inside the docker container:
 ```bash
 # Official docker registry entrypoint:
 $ registry serve /etc/docker/registry/config.yml &

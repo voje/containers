@@ -35,3 +35,10 @@ func TrimHttp(url string) string {
 	url = strings.Replace(url, "http://", "", -1)
 	return url
 }
+
+type SkopeoTemplate struct {
+	Registry string
+	User     string
+	Password string
+	Images   []DockerImg
+}

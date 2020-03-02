@@ -34,15 +34,30 @@ func Pull(c *cli.Context) {
 		log.Fatal(err)
 	}
 
-	// Read template.
-	templ, err := template.ParseFiles("../../package/tools/templates/skopeo_template.yml")
+	// Prepare template data.
+	tmplData := SkopeoTemplate{
+		User:     splitCredentials(c.String("creds"))[0],
+		Password: splitCredentials(c.String("creds"))[1],
+		Images:   dockerImages,
+	}
+
+	// Read template from file.
+	/*
+		templ, err := template.ParseFiles("../../package/tools/templates/skopeo_template.yml")
+		if err != nil {
+			log.Fatal(err)
+		}
+	*/
+
+	// Read template from string.
+	templ := template.Must(template.New("skopeo_template").Parse(skopeo_template))
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Write config to tmp file.
 	var buff bytes.Buffer
-	templ.Execute(&buff, dockerImages)
+	templ.Execute(&buff, tmplData)
 
 	tmpfile, err := ioutil.TempFile("/tmp", "skopeo_config")
 	if err != nil {
@@ -75,16 +90,16 @@ func Pull(c *cli.Context) {
 		tmpfile.Name(),
 		TrimHttp(GlobalString["local-addr"]),
 	)
-	var out bytes.Buffer
-	cmd.Stdout = &out
+	var cmdOut, cmdErr bytes.Buffer
+	cmd.Stdout = &cmdOut
+	cmd.Stderr = &cmdErr
 
 	log.Println(cmd.Path)
 	log.Println(cmd.Args)
 
 	err = cmd.Run()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(cmdErr.String())
 	}
-	log.Printf("%q\n", out.String())
-
+	log.Printf(cmdOut.String())
 }
