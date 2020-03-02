@@ -43,5 +43,5 @@ func WriteSkopeoTemplate(d SkopeoTemplate, f *os.File) {
 	}
 
 	// Some info output.
-	log.Println(string(buff.Bytes()))
+	// log.Println(string(buff.Bytes()))
 }

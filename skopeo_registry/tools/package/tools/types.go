@@ -25,7 +25,7 @@ func NewDockerImg(ref string) (di DockerImg) {
 func (d *DockerImg) ToString() string {
 	str := ""
 	for _, tag := range d.Tags {
-		str += fmt.Sprintf("%s:%s\n", d.Name, tag)
+		str += fmt.Sprintf("%s:%s", d.Name, tag)
 	}
 	return str
 }

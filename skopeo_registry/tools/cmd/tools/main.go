@@ -86,12 +86,15 @@ func main() {
 				imgList := tools.List(c)
 				fmt.Printf("%s images:\n-------\n", tools.GlobalString["local-addr"])
 				for _, img := range imgList {
-					log.Println(img.ToString())
+					fmt.Println(img.ToString())
 				}
 				return nil
 			},
 		},
 	}
 
-	log.Fatal(app.Run(os.Args))
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
