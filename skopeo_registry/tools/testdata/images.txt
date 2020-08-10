@@ -1,2 +1,0 @@
-vmgitent.iskratel.si:4567/ai6212ax/bacula-infra-backup/it_bacula-db:1.1.0
-vmgitent.iskratel.si:4567/ai6212ax/it_repo_server/nginx:1.15.10
