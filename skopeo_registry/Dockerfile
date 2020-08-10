@@ -35,6 +35,10 @@ COPY --from=go_builder /tools/tools /usr/bin/tools
 
 VOLUME ["/var/lib/registry"]
 EXPOSE 5000
-ENTRYPOINT ["registry", "serve", "/etc/docker/registry/config.yml"]
+
+# Add entrypoint script and run it.
+# entrypoint should start the internal docker registry.
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["skopeo", "-h", "tools", "-h"]
