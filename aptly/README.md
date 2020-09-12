@@ -9,7 +9,13 @@ The folder `persistent_data` will contain mirrorred data (stored in container's 
 
 Follow the scripts from 01 on to prepare mirror, download, create repo, create key, create signed snapshot.   
 
-# Using aptly
+## Understanding docker usage
+Aptly creates its database (including a huge mirror) in `./root/.aptly` - this folder is mapped to `./persistent_data` on docker host (we can set the mount folder in `Makefile`).   
+The docker container brings the aptly server on a debian base image and guarantees a repeatable environment (no more conflicts with aptly and gpgv1/gpgv2, etc...).   
+To use aptly, we bring up a container with `make-run` (assuming we've alredy built it), the run all the scripts from inside the container.   
+There's no need to interact with data in `./persistent_data` from the docker host.   
+
+## Using aptly
 After running `make run`, you will be greeted with a shell insode the docker container.   
 This container has aptly installed on a base debian image (aptly likes debian).   
 
