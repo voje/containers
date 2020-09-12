@@ -11,5 +11,6 @@ run-docker:
 		-it \
 		--name ${CNT} \
 		-v $(shell pwd)/scripts:/scripts \
+		-v $(shell pwd)/persistent_data:/root \
 		-w /scripts \
 		${IMG} /bin/bash

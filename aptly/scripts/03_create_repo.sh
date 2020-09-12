@@ -1,0 +1,71 @@
+#!/bin/bash
+
+#
+# Create repo out of mirrorred repositories
+#
+
+
+# Variables
+
+REPO="my-repo"
+PKG_LIST="./config/packages.txt"
+
+
+# Check packages file
+if ! [ -f $PKG_LIST ]; then
+	echo "[*] Expecting a list of packages in file: $PKG_LIST"
+	exit 1
+else
+	echo "[*] Using package list: $PKG_LIST"
+fi
+
+
+# Create a new repo - first drop the old one
+if aptly repo show $REPO; then
+	echo "[*] Dropping repo: $REPO"
+	aptly repo drop $REPO
+fi
+
+# Create a new one
+if ! aptly repo show $REPO; then
+	echo "[*] Creating repo: $REPO"
+	aptly repo create -component="main" -distribution="bionic" -comment="Bionic main repo" "$REPO"
+fi
+
+
+# Import packages from mirrors, created in step 01
+
+# Import all packages from docker mirror
+cat <<EOF
+aptly repo import \
+	--architectures="amd64" \
+	--with-deps \
+	bionic-docker-main-1 \
+	"$REPO" \
+	'$PackageType (%*)'
+EOF
+
+# Import subset of packages from ubuntu main and ubuntu update mirrors
+cat $PKG_LIST | while read package; do
+	# Import from main
+	aptly repo import \
+		--architectures="amd64" \
+		--with-deps \
+		--dep-follow-recommends \
+		bionic-main-1 \
+		"$REPO" \
+		"$package"
+
+	# Import from updates
+	aptly repo import \
+		--architectures="amd64" \
+		--with-deps \
+		--dep-follow-recommends \
+		bionic-updates-1 \
+		"$REPO" \
+		"$package"
+done
+
+echo "[*] Repo $REPO is ready! Time to create a snapshot."
+
+

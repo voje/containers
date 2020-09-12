@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # This script takes a while to download all of the mirror data.
 
 aptly mirror update bionic-main-1
