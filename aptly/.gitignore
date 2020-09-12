@@ -1,2 +1,5 @@
 # Aptly mirror and all the databases are created in here
-persistent_data/
+persistent_data/*
+
+# Ignored for obvious reasons
+gpg_keys/*
