@@ -4,6 +4,4 @@ RUN apt-get update && apt-get install -y \
 	aptly \
 	curl \
 	wget \
-	rng-tools \
-	tmux
-
+	procps
