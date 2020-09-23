@@ -2,12 +2,16 @@
 
 REPO="my-repo"
 SNAP="my-snap"
+PUBL="bionic"
 
 
 # Drop if exists
 if aptly snapshot show $SNAP; then
 	echo "[*] Dropping snapshot $SNAP"
 	aptly snapshot drop $SNAP
+
+	# Drop published snapshot
+	aptly publish drop $PUBL
 fi
 
 

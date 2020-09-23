@@ -6,6 +6,8 @@
 # try apt update
 #
 
+CHECKLIST_FILE="./config/checklist.txt"
+
 # Serve snapshot
 echo "[*] Serving snapshot (/root/.aptly/public)"
 aptly serve &
@@ -25,6 +27,14 @@ if apt update; then
 	echo "[*] SUCCESS ! apt update works, key seems fine"
 else
 	echo "[*] apt update FAILED!!!"
+fi
+
+# Check individual packages if checklist is specified
+if [ -f "$CHECKLIST_FILE" ]; then
+	echo "[*] checking individual packages"
+	cat "$CHECKLIST_FILE" | while read package; do	
+		apt-cache policy $package
+	done
 fi
 
 echo "[*] Stopping server"

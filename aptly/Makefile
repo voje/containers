@@ -6,7 +6,7 @@ build-docker:
 
 run-docker:
 	-docker rm -f ${CNT}
-	-mkdir persistens_data gpg_keys
+	-mkdir persistent_data gpg_keys
 	docker run \
 		--rm \
 		-it \

@@ -5,6 +5,14 @@
 #
 
 
+# Prompt user before continuing
+read -p "[*] This process might take long (depending on packages.txt). Continue? [y/N]" yn
+if [[ "$yn" != y ]]; then
+	echo "[*] Aborting"
+	exit
+fi
+
+
 # Variables
 
 REPO="my-repo"
@@ -47,6 +55,18 @@ EOF
 
 # Import subset of packages from ubuntu main and ubuntu update mirrors
 cat $PKG_LIST | while read package; do
+	# Skip empty lines
+	if [[ "${#package}" == "0" ]]; then
+		echo "[*] Skipping empty line"
+		continue
+	fi
+
+	# Skip comments
+	if echo $package | grep -q -e "^#"; then
+		echo "[*] Skipping comment: $package"
+		continue
+	fi
+
 	# Import from main
 	aptly repo import \
 		--architectures="amd64" \
