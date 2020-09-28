@@ -10,7 +10,8 @@ RUN apt-get update -y && apt-get install -y \
     iproute2 \
     netcat \
     mtr \
-    git
+    git \
+    nghttp2
 
 RUN apt-get update -y && apt-get install -y curl
 
