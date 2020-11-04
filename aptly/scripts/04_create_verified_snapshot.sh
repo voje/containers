@@ -26,5 +26,3 @@ fi
 aptly snapshot verify $SNAP
 echo "[*] If there are MISSING DEPENDENCIES, add them to your packages list and redo steps 03 and 04"
 
-
-# TODO publish: add gpg key!

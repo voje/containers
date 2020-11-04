@@ -7,3 +7,5 @@ set -e
 aptly mirror update bionic-main-1
 aptly mirror update bionic-updates-1
 aptly mirror update bionic-docker-main-1
+aptly mirror update bionic-ansible-28
+aptly mirror update bionic-security

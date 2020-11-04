@@ -4,6 +4,8 @@
 # Create repo out of mirrorred repositories
 #
 
+# Debugging
+set -x
 
 # Prompt user before continuing
 read -p "[*] This process might take long (depending on packages.txt). Continue? [y/N]" yn
@@ -53,7 +55,17 @@ aptly repo import \
 	'$PackageType (%*)'
 EOF
 
-# Import subset of packages from ubuntu main and ubuntu update mirrors
+# Import all packages from ansible mirror
+cat <<EOF
+aptly repo import \
+	--architectures="amd64" \
+	--with-deps \
+	bionic-ansible-28 \
+	"$REPO" \
+	'$PackageType (%*)'
+EOF
+
+# Import subset of packages from ubuntu main and ubuntu update and ubuntu security mirrors
 cat $PKG_LIST | while read package; do
 	# Skip empty lines
 	if [[ "${#package}" == "0" ]]; then
@@ -66,6 +78,8 @@ cat $PKG_LIST | while read package; do
 		echo "[*] Skipping comment: $package"
 		continue
 	fi
+
+	echo "[*] Importing package: $package"
 
 	# Import from main
 	aptly repo import \
@@ -82,6 +96,15 @@ cat $PKG_LIST | while read package; do
 		--with-deps \
 		--dep-follow-recommends \
 		bionic-updates-1 \
+		"$REPO" \
+		"$package"
+
+	# Import from security
+	aptly repo import \
+		--architectures="amd64" \
+		--with-deps \
+		--dep-follow-recommends \
+		bionic-security \
 		"$REPO" \
 		"$package"
 done
