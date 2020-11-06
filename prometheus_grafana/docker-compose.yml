@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+    prometheus:
+        image: voje/prometheus:v2.15.2
+        restart: always
+        ports:
+            - 9090:9090  # TODO: close this port after configuration
+        volumes:
+            - ./config:/home/config:ro
+            - prometheus-data:/prometheus
+        networks:
+            - backend
+
+    grafana:
+        image: grafana/grafana
+        restart: always
+        ports:
+            - 3000:3000
+        networks:
+            - backend
+        volumes:
+            - grafana-data:/var/lib/grafana
+
+networks:
+    backend:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.38.0.0/24
+
+volumes:
+    prometheus-data:
+    grafana-data:
