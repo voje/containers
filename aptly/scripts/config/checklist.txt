@@ -1,5 +1,2 @@
 curl
-libcurl3-gnutls
-libcurl3-nss
-libcurl4
-apparmor
+crudini

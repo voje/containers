@@ -5,7 +5,7 @@
 #
 
 # Debugging
-set -x
+# set -x
 
 # Prompt user before continuing
 read -p "[*] This process might take long (depending on packages.txt). Continue? [y/N]" yn
@@ -99,14 +99,6 @@ cat $PKG_LIST | while read package; do
 		"$REPO" \
 		"$package"
 
-	# Import from security
-	aptly repo import \
-		--architectures="amd64" \
-		--with-deps \
-		--dep-follow-recommends \
-		bionic-security \
-		"$REPO" \
-		"$package"
 done
 
 echo "[*] Repo $REPO is ready! Time to create a snapshot."
