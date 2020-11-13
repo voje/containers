@@ -1,4 +1,4 @@
-VERSION=0.0.4
+VERSION=0.0.5
 IMG=voje/toolbox:${VERSION}
 
 build:

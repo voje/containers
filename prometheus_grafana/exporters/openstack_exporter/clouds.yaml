@@ -1,0 +1,10 @@
+clouds:
+  testcore:
+    region_name: rrr
+    auth:
+      auth_url: http://192.111.111.111:35357/v3
+      username: aaa
+      password: nope
+      project_name: ppp
+      domain_name: ddd
+
