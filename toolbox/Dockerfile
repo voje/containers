@@ -11,7 +11,8 @@ RUN apt-get update -y && apt-get install -y \
     netcat \
     mtr \
     git \
-    nghttp2
+    nghttp2 \
+    dnsutils
 
 RUN apt-get update -y && apt-get install -y curl
 
