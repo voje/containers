@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 #wget -O -  https://download.docker.com/linux/ubuntu/gpg |  gpg --no-default-keyring --keyring /usr/share/keyrings/ubuntu-archive-keyring.gpg --import
 #wget -O -  http://si.archive.ubuntu.com/ubuntu/project/ubuntu-archive-keyring.gpg.sig  |  gpg --no-default-keyring --keyring /usr/share/keyrings/ubuntu-archive-keyring.gpg --import 
 #wget -O -  http://si.archive.ubuntu.com/ubuntu/project/ubuntu-archive-keyring.gpg  |  gpg --no-default-keyring --keyring /usr/share/keyrings/ubuntu-archive-keyring.gpg --import

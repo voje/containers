@@ -5,7 +5,6 @@
 # Quickly search for package name in mirror, repo and snapshot
 #
 
-MIRROR=bionic-main-1
 REPO=my-repo
 SNAP=my-snap
 
@@ -22,8 +21,12 @@ if [ -f "$CHECKLIST_FILE" ]; then
 	cat "$CHECKLIST_FILE" | while read PKG; do	
 		echo "---------"
 		echo "[*] Querying package: $PKG"
-		echo "[*] mirror"
-		aptly mirror search $MIRROR $PKG
+
+		for MIRROR in $(aptly mirror list -raw); do
+			echo "[*] mirror: $MIRROR"
+			aptly mirror search $MIRROR $PKG
+		done
+	
 		echo "[*] repo"
 		aptly repo search $REPO $PKG
 		echo "[*] snapshot"

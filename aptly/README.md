@@ -1,9 +1,19 @@
 # Aptly
 
 Aptly container with automatic mirror + exported repository.   
+Aptly and scripts should be executed from inside the container (bring the environment with you).   
+It's recommended to run `tmux`, so we can detach from the terminal while the process runs overnight.   
 
-`make-build` to build the container
-`make-run` to run the container
+Quick start
+```bash
+$ tmux new -s aptly
+$ make run-docker
+
+# Inside docker, edit ./config/packages.txt and run scripts in alphabetical order
+```
+
+`make build-docker` to build the container
+`make run-docker` to run the container
 
 The folder `persistent_data` will contain mirrorred data (stored in container's root).   
 

@@ -46,24 +46,20 @@ fi
 # Import packages from mirrors, created in step 01
 
 # Import all packages from docker mirror
-cat <<EOF
 aptly repo import \
 	--architectures="amd64" \
 	--with-deps \
 	bionic-docker-main-1 \
 	"$REPO" \
 	'$PackageType (%*)'
-EOF
 
 # Import all packages from ansible mirror
-cat <<EOF
 aptly repo import \
 	--architectures="amd64" \
 	--with-deps \
 	bionic-ansible-28 \
 	"$REPO" \
 	'$PackageType (%*)'
-EOF
 
 # Import subset of packages from ubuntu main and ubuntu update and ubuntu security mirrors
 cat $PKG_LIST | while read package; do
