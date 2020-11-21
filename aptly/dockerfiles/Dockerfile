@@ -14,3 +14,6 @@ RUN apt-get install -y \
 	openssh-client \
 	ca-certificates \
 	&& update-ca-certificates
+
+# mc
+RUN apt-get install -y mc

@@ -1,4 +1,4 @@
-IMG=voje/aptly:0.0.1
+IMG=voje/aptly:0.0.2
 CNT=voje_aptly
 
 build-docker:
