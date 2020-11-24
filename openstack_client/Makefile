@@ -1,4 +1,4 @@
-IMG="voje/openstack-client"
+IMG="voje/openstack-client:0.1.0"
 CNT="voje_ops_cli"
 
 build-docker:
