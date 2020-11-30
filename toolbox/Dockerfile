@@ -17,3 +17,5 @@ RUN apt-get update -y && apt-get install -y \
 RUN apt-get update -y && apt-get install -y curl
 
 RUN apt-get update -y && apt-get install -y gnupg2 wget
+
+RUN apt-get update -y && apt-get install -y tcpdump
