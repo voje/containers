@@ -14,6 +14,8 @@ if aptly snapshot show $SNAP; then
 	aptly publish drop $PUBL
 fi
 
+sleep 3
+
 # TODO
 # For some reason, snapshot takes the wrong ansible version from repo
 echo "[*] Removing undesired version of ansible"
@@ -26,6 +28,7 @@ if ! aptly snapshot show $SNAP; then
 	aptly snapshot create $SNAP from repo $REPO
 fi
 
+sleep 2
 
 # Verify dependencies
 aptly snapshot verify $SNAP

@@ -6,6 +6,9 @@
 # try apt update
 #
 
+# Crash on error
+set -e
+
 CHECKLIST_FILE="./config/checklist.txt"
 
 # Serve snapshot

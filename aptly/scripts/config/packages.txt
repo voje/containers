@@ -816,3 +816,7 @@ python2.7
 python3-pygments
 python3
 python
+
+# Fixing Ansible 2.8 dependencies
+sshpass
+
