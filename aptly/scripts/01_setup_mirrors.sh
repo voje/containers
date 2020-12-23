@@ -18,8 +18,8 @@ wget -O -  https://download.docker.com/linux/ubuntu/gpg | gpg --no-default-keyri
 aptly mirror create -architectures=amd64 -filter-with-deps bionic-docker-main-1 https://download.docker.com/linux/ubuntu/ bionic stable
 
 # Ansible 2.8
-gpg --no-default-keyring --keyring trustedkeys.gpg --keyserver keys.gnupg.net --recv-keys 93C4A3FD7BB9C367
-aptly mirror create -architectures=amd64 -filter-with-deps bionic-ansible-28 http://ppa.launchpad.net/ansible/ansible-2.8/ubuntu bionic main
+# gpg --no-default-keyring --keyring trustedkeys.gpg --keyserver keys.gnupg.net --recv-keys 93C4A3FD7BB9C367
+# aptly mirror create -architectures=amd64 -filter-with-deps bionic-ansible-28 http://ppa.launchpad.net/ansible/ansible-2.8/ubuntu bionic main
 
 gpg --keyring trustedkeys.gpg  -k
 

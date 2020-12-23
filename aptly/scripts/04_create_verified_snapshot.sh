@@ -14,13 +14,7 @@ if aptly snapshot show $SNAP; then
 	aptly publish drop $PUBL
 fi
 
-sleep 3
-
-# TODO
-# For some reason, snapshot takes the wrong ansible version from repo
-echo "[*] Removing undesired version of ansible"
-aptly repo remove my-repo ansible_2.5.1+dfsg-1_all
-aptly repo remove my-repo ansible_2.5.1+dfsg-1ubuntu0.1_all
+sleep 2
 
 # Create snapshot
 if ! aptly snapshot show $SNAP; then

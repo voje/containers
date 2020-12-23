@@ -806,17 +806,3 @@ libcurl4
 apparmor
 
 crudini
-
-# Fixing missing dependencies
-perl
-python-cffi-backend-api-max
-python-cffi-backend-api-min
-python-pygments
-python2.7
-python3-pygments
-python3
-python
-
-# Fixing Ansible 2.8 dependencies
-sshpass
-
