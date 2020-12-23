@@ -48,16 +48,8 @@ fi
 # Import all packages from docker mirror
 aptly repo import \
 	--architectures="amd64" \
-	--with-deps \
+	--dep-follow-all-variants \
 	bionic-docker-main-1 \
-	"$REPO" \
-	'$PackageType (%*)'
-
-# Import all packages from ansible mirror
-aptly repo import \
-	--architectures="amd64" \
-	--with-deps \
-	bionic-ansible-28 \
 	"$REPO" \
 	'$PackageType (%*)'
 
@@ -81,7 +73,7 @@ cat $PKG_LIST | while read package; do
 	aptly repo import \
 		--architectures="amd64" \
 		--with-deps \
-		--dep-follow-recommends \
+		--dep-follow-all-variants \
 		bionic-main-1 \
 		"$REPO" \
 		"$package"
@@ -90,7 +82,7 @@ cat $PKG_LIST | while read package; do
 	aptly repo import \
 		--architectures="amd64" \
 		--with-deps \
-		--dep-follow-recommends \
+		--dep-follow-all-variants \
 		bionic-updates-1 \
 		"$REPO" \
 		"$package"
