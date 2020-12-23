@@ -32,4 +32,6 @@ alias o='openstack --insecure'
 o server list
 ```
 
+## Ansible
+Adds ansible to the container with openstack plugins
 

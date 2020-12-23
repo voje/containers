@@ -6,10 +6,13 @@ RUN apk add python3-dev
 RUN apk add libffi-dev
 RUN apk add libressl-dev
 RUN apk add build-base
-
-RUN pip3 install openstackclient
-
 RUN apk add vim curl nmap
+
+RUN pip3 install --upgrade pip
+RUN pip3 install openstackclient
+RUN pip3 install ansible
+
+RUN ansible-galaxy collection install openstack.cloud
 
 WORKDIR /openstackrc
 
