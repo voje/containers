@@ -1,0 +1,11 @@
+---
+os_sb_network_id: 667a1c8b-c2bb-47a9-8d10-e30131d1de1a
+os_security_groups_id: d4f6e648-35a9-480e-896c-51626364d53f
+
+os_auth:
+  auth_url: https://itcloud.iskratel.si:5000/v3
+  username: voje
+  password: iskratel
+  project_name: 5G
+  user_domain_name: itcloud
+os_cacert: /root/mount/secrets/

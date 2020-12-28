@@ -14,6 +14,11 @@ RUN pip3 install ansible
 
 RUN ansible-galaxy collection install openstack.cloud
 
-WORKDIR /openstackrc
+# Openstack self-signed certificate problem
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+# COPY ./mycert.crt /usr/local/share/ca-certificates/mycert.crt
+# RUN update-ca-certificates
+
+WORKDIR /root
 
 CMD ["/bin/sh"]

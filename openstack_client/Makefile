@@ -9,5 +9,10 @@ push-docker:
 
 run-dev:
 	-docker rm ${CNT}
-	docker run -it --name ${CNT} ${IMG} /bin/sh
+	docker run \
+	    -it \
+	    --name ${CNT} \
+	    -v $(shell pwd)/mount:/root/mount \
+	    ${IMG} \
+	    /bin/sh
 

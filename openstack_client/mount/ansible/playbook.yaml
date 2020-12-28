@@ -1,0 +1,8 @@
+---
+- name: Main playbook
+  hosts: fiveg
+  gather_facts: no
+  roles:
+    - role: "./roles/create_os_instance"
+  vars_files:
+    - ./variables.yaml

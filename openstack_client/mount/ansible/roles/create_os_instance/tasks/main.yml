@@ -1,0 +1,21 @@
+---
+
+- name: Debug print
+  tags:
+  - debug
+  debug:
+    msg:
+    - "{{ inventory_hostname_short }}"
+    - "{{ ip }}"
+
+- name: Create SB ports
+  openstack.cloud.port:
+    state: present
+    name: "port_{{ inventory_hostname_short }}"
+    network: "{{ os_sb_network_id }}"
+    security_groups: "{{ os_security_groups_id }}"
+    auth: "{{ os_auth }}"
+    ca_cert: "{{ os_cacert }}"
+    fixed_ips:
+    - ip_address: "{{ ip }}"
+  delegate_to: localhost

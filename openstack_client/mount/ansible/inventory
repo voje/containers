@@ -1,0 +1,15 @@
+[fiveg]
+
+[fiveg:children]
+amf
+smf
+upf
+
+[amf]
+amf.radisys.demo ip=192.168.13.101
+
+[smf]
+smf.radisys.demo ip=192.168.13.102
+
+[upf]
+upf.radisys.demo ip=192.168.13.103
