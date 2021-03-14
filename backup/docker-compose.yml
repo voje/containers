@@ -1,0 +1,11 @@
+version: 3.8
+
+services:
+  backup:
+    build: .
+    environment:
+      # Copy the public key to the destination servers' authorized_hosts file
+      - SSH_PRV_KEY
+    volumes:
+      - ./data:/data
+      - ./ssh_keys:/ssh_keys
