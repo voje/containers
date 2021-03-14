@@ -1,6 +1,6 @@
 
-!ssh_keys/.gitkeep
 ssh_keys/*
+!ssh_keys/.gitkeep
 
-!data/.gitkeep
 data/*
+!data/.gitkeep
