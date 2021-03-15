@@ -6,5 +6,10 @@ RUN apk update \
         rsync \
         openssh-client \
         ca-certificates \
+	run-parts \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/*
+
+COPY project /project
+
+CMD ["/bin/sh", "/project/entrypoint.sh"]
