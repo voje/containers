@@ -1,4 +1,5 @@
-IMG="voje/xmr"
+VERSION="0.1.0"
+IMG="voje/benchmark:${VERSION}"
 CNT="voje_xmr"
 
 build-docker:
@@ -19,7 +20,7 @@ run-docker:
 		--cpus="4.0" \
 		-v $(shell realpath ./config):/config \
 		-v /dev/hugepages:/dev/hugepages \
-		--name ${CNT} ${IMG} \
-		./xmrig -c /config/config.json
+		--name ${CNT} ${IMG}
+		# ./xmrig -c /config/config.json
 		# /bin/bash
 
