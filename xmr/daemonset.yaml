@@ -1,0 +1,38 @@
+# Doesn't quite work. Miner gest either "Killed" or "Core dumped" on some nodes. 
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+    name: benchmark-daemon
+    namespace: bench
+    labels:
+        app: benchmark-daemon
+spec:
+    selector:
+        matchLabels:
+            name: benchy
+    template:
+        metadata:
+            labels:
+                name: benchy
+        spec:
+            tolerations:
+                # Allow running on master nodes
+                - key: node-role.kubernetes.io/master
+                  operator: Exists
+                  effect: NoSchedule
+            containers:
+                - name: benchy-container
+                  image: docker.io/voje/benchmark:0.1.0
+                  command: ["sleep", "10000"]
+                  #                  volumeMounts:
+                  #                      - mountPath: /hugepages-2Mi
+                  #                        name: hugepage-2mi
+                        #                  resources:
+                        #                      limits:
+                        #                          hugepages-2Mi: 10Mi
+                        #                          memory: 2Gi
+                          #            volumes:
+                          #                - name: hugepage-2mi
+                          #                  emptyDir:
+                          #                      medium: HugePages
