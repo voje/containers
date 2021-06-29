@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  backup:
+    build: .
+    environment:
+      SSH_PRV_KEY: "/ssh_keys/id_ed25519"   # generate and distribute key before first usage
+    volumes:
+      - ./data:/data            # backed-up data
+      - ./ssh_keys:/ssh_keys    # container's ssh key
+    # command: "/bin/sleep 50000"

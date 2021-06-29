@@ -1,0 +1,10 @@
+testdirs/*
+
+ssh_keys/*
+!ssh_keys/.gitkeep
+
+data/*
+!data/.gitkeep
+
+project/*
+!project/.gitkeep

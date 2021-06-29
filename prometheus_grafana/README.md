@@ -13,36 +13,14 @@ Grafana displays nice graphs.
 
 ## Quick start
 ```
-$ make run
-```
-
-## Run the Prometheus server docker container
-Run the wrapper script.   
+Copy prometheus config to mounted system folder:
 ```bash
-./run_prometheus
+# Start docker-compose
+docker-compose up -d
 ```
 
-You can enter the container for debugging with:
-```bash
-$ docker exec -it prometheus /bin/bash
-```
-
-The container is running the following process:
-```
-/bin/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --web.console.libraries=/
-```
-
-## Docker mount problem
-This is a bit problematic... if we want to use our own `prometheus.yml` file, we will want to mount it from outside the container.   
-Mounting files is bad because changes only get applied inside the container if we restart it.   
-The better solution is mounting a folder, for example `/etc/prometheus`. The problem is that folder in the container already contains some other folders and we probably need them.   
-
-### Workaround
-`Dockerfile` with a custom `ENTRYPOINT`.   
-`config` is mounted as `/home/config`.   
-
-## Configuration
-Edit the config file in `./config`.   
+## Prometheus configuration
+Edit config: `/etc/prometheus/prometheus.yml`.   
 For example, let's add a docker-daemon exporter running on our host machine.
 ```yaml
   - job_name: 'docker'
@@ -50,17 +28,20 @@ For example, let's add a docker-daemon exporter running on our host machine.
       - targets:
         - "127.0.0.1:9323"
 ```
-After adding configuration, send a reload signal to the server.   
-```bash
-$ curl -X POST http://localhost:9090/-/reload
-```
-Note: when done with configuration, close the 9090 port in docker-compose and restart the stack.   
 
-
-## Setup from scratch
 ```bash
-$ docker-compose up -d
+# Enter prometheus container, prepare config and send restart
+docker-compose exec prometheus vi /etc/prometheus/prometheus.yml
+
+# Send reload command to prometheus
+curl -X POST http://localhost:9090/-/reload
 ```
+
+## Safety
+When done with configuration, close the 9090 port in docker-compose and restart the stack.   
+Prometheus doesn't handle authentication to the web console so it's better to close the port.   
+We will access prometheus data via Grafana.   
+
 
 ### Grafana setup
 Enter Grafana dashboard on `localhost:3000`.   
