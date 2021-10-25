@@ -14,9 +14,10 @@ run-dev:
 
 # This command runs a SCTP server listening on port 9876
 run-docker:
-	sysctl -w vm.nr_hugepages=2000
+	# sudo sysctl -w vm.nr_hugepages=2000
 	-docker rm ${CNT}
 	docker run \
+		--privileged \
 		--cpus="4.0" \
 		-v /dev/hugepages:/dev/hugepages \
 		--name ${CNT} \

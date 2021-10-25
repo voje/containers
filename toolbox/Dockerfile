@@ -9,13 +9,13 @@ RUN apt-get update -y && apt-get install -y \
     traceroute \
     iproute2 \
     netcat \
+    ncat \
     mtr \
     git \
     nghttp2 \
-    dnsutils
+    dnsutils \
+    curl \
+    gnupg2 \
+    wget \
+    tcpdump 
 
-RUN apt-get update -y && apt-get install -y curl
-
-RUN apt-get update -y && apt-get install -y gnupg2 wget
-
-RUN apt-get update -y && apt-get install -y tcpdump

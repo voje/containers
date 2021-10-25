@@ -17,18 +17,24 @@ spec:
       labels:
         app: benchmark
     spec:
+      nodeSelector:
+        hugepages: "true"
       containers:
       - image: voje/benchmark:0.1.1
         name: benchmark
+        command:
+          - sleep
+          - inf
+        securityContext:
+            privileged: true
         resources:
           requests:
             memory: 1Gi
             cpu: 3.0
-            hugepages-2Mi: 1Gi
+            hugepages-2Mi: 900Mi
           limits:
-            memory: 2Gi
             cpu: 4.0
-            hugepages-2Mi: 1Gi
+            hugepages-2Mi: 900Mi
       volumes:
       - name: hugepages-2mi
         emptyDir:
