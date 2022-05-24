@@ -19,3 +19,9 @@ RUN apt-get update -y && apt-get install -y \
     wget \
     tcpdump 
 
+RUN apt-get update -y && apt-get install -y \
+    jq \
+    tmux \
+    socat \
+    arping
+
