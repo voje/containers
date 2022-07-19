@@ -1,0 +1,7 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: labrat
+      # labrat12
+      password_hash: $y$j9T$RffKSDXF1CRZ1Z4X7mX9c0$jNnqRV8GUuOpk7ToFUh3mHEDyGu5/D/xEcwL8hJbMS2
