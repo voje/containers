@@ -1,4 +1,4 @@
-CRI="podman"
+CRI="docker"
 VERSION=0.0.1
 IMG=voje/hello:${VERSION}
 CNT=hello
@@ -10,6 +10,11 @@ push-image: build-image
 	${CRI} push ${IMG}
 
 run-docker:
-	${CRI} run --rm --name ${CNT} -p 8080:8080 ${IMG}
+	${CRI} run \
+		--rm \
+		--name ${CNT} \
+		-e HELLO='Hola !' \
+		-p 8080:8080 \
+	${IMG}
 	${CRI} logs -f ${CNT}
 
