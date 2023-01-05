@@ -12,3 +12,9 @@ push-image: build-image
 run: build-image
 	docker run --rm -it --name ${CNT} ${IMG} /bin/bash
 
+# After 'run', run nvim twice to install the packages
+# Then run commit-push
+commit-push:
+	${CRI} commit ${CNT} ${IMG} 
+	${CRI} push ${IMG}
+

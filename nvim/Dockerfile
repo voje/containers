@@ -1,32 +1,32 @@
 FROM ubuntu:22.04
 
-WORKDIR /root
-
 RUN apt-get update && apt-get install -y \
-  curl
+  wget ripgrep git
 
-# Install Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh && sh rustup.sh -y && rm rustup.sh
-ENV PATH=${PATH}:/root/.cargo/bin
+WORKDIR /root/downloads
 
-RUN apt-get install -y gcc
-RUN cargo install \
-  tree-sitter-cli \
-  ripgrep
+# Install tree-sitter
+RUN wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.7/tree-sitter-linux-x64.gz && \
+  gzip -d tree-sitter-linux-x64.gz && \
+  install tree-sitter-linux-x64 /usr/local/bin/tree-sitter -m 755 && \
+  rm tree-sitter-linux-x64
 
-WORKDIR /root/git
+RUN wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && \
+  chmod u+x nvim.appimage && \
+  ./nvim.appimage --appimage-extract && \
+  rm nvim.appimage && \
+  mv squashfs-root / && \
+  ln -s /squashfs-root/AppRun /usr/bin/nvim && \
+  nvim --version
 
-RUN apt-get install -y git
+# Nvim package deps
+RUN apt-get install -y \
+  build-essential \
+  make \
+  gcc
 
-##
-## Compile and install neovim
-##
-RUN apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
-RUN git clone https://github.com/neovim/neovim.git
-RUN cd /root/git/neovim && \
-  make CMAKE_BUILD_TYPE=RelWithDebInfo && \
-  make install
-RUN nvim --version
-RUN rm -rf /root/git/neovim
-RUN echo "alias vim='nvim' >> ~/.bash_aliases"
+RUN echo "alias vim='nvim'" >> ~/.bashrc
+COPY dotfiles/init.lua /root/.config/nvim/init.lua
+
+WORKDIR /root/
 
