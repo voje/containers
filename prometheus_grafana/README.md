@@ -13,7 +13,12 @@ Grafana displays nice graphs.
 
 ## Quick start
 ```
-Copy prometheus config to mounted system folder:
+# Copy prometheus config to mounted system folder
+```bash
+sudo mkdir /etc/prometheus
+sudo install 755 ./config/prometheus.yml /etc/prometheus/prometheus.yml
+vim /etc/prometheus/prometheus.yml
+```
 ```bash
 # Start docker-compose
 docker-compose up -d
